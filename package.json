@@ -1,0 +1,19 @@
+{
+  "name": "paper-it",
+  "private": true,
+  "version": "1.0.0",
+  "description": "The extension turns colorful and distracting websites into black-and-white newspapers, allowing you to choose what to read independently of bright covers or colorful fonts.",
+  "scripts": {
+    "build": "rollup --config"
+  },
+  "keywords": [],
+  "author": "samurazen",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/firefox-webext-browser": "^120.0.4",
+    "rollup": "^4.18.1",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.3"
+  }
+}

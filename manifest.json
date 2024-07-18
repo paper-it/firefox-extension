@@ -1,0 +1,24 @@
+{
+  "name": "Paper It",
+  "description": "The extension turns colorful and distracting websites into black-and-white newspapers, allowing you to choose what to read independently of bright covers or colorful fonts.",
+  "manifest_version": 2,
+  "version": "1.0",
+  "homepage_url": "https://github.com/paper-it/firefox-extension",
+  "icons": {
+    "48": "icons/icons8-newspaper-48.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "./dist/content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    "images/*"
+  ]
+}
