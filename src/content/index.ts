@@ -3,13 +3,18 @@ import { Overlay } from "./libs/Overlay";
 import { BodyWatcher } from "./libs/BodyWatcher";
 import { getPageHeight } from "./libs/utils";
 import { waitForTag } from "./libs/wait-for-tag";
-
-const paperImageUrls = [
-    browser.runtime.getURL('images/paper1.jpg'),
-    browser.runtime.getURL('images/paper2.jpg')
-];
+import { isHtmlDocument } from "./libs/is-html-document";
 
 async function initialize() {
+    if (!isHtmlDocument()) {
+        return;
+    }
+
+    const paperImageUrls = [
+        browser.runtime.getURL('images/paper1.jpg'),
+        browser.runtime.getURL('images/paper2.jpg')
+    ];
+
     await waitForTag('head');
 
     applyCss(`
