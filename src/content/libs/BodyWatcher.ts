@@ -1,7 +1,7 @@
 type WatcherCallback = () => void;
 
 export class BodyWatcher {
-    private _observer: MutationObserver;
+    private readonly _observer: MutationObserver;
 
     public constructor(callback: WatcherCallback) {
         this._observer = new MutationObserver(() => callback());

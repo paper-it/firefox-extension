@@ -1,5 +1,5 @@
 export class Overlay {
-    private _element: HTMLDivElement;
+    private readonly _element: HTMLDivElement;
 
     public constructor(imageUrl: string, height: number) {
         this._element = document.createElement('div');
