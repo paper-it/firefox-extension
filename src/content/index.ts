@@ -1,9 +1,7 @@
-import { applyCss } from "./libs/apply-css";
 import { Overlay } from "./libs/Overlay";
 import { BodyWatcher } from "./libs/BodyWatcher";
-import { getPageHeight } from "./libs/utils";
-import { waitForTag } from "./libs/wait-for-tag";
-import { isHtmlDocument } from "./libs/is-html-document";
+import { FilterLevel, StylesManager } from "./libs/StylesManager";
+import { getPageHeight, isHtmlDocument, waitForTag } from "./libs/utils";
 
 async function initialize() {
     if (!isHtmlDocument()) {
@@ -17,23 +15,19 @@ async function initialize() {
 
     await waitForTag('head');
 
-    applyCss(`
-        html {
-            filter: grayscale(100%);
-        }
-
-        * {
-            border-radius: 0 !important;
-        }
-    `);
+    const stylesManager = new StylesManager();
+    stylesManager.grayscaleLevel = FilterLevel.Ten;
+    stylesManager.contrastLevel = FilterLevel.Zero;
+    stylesManager.isBorderRadiusDisabled = true;
+    stylesManager.apply();
 
     const body = await waitForTag('body');
     const overlay = new Overlay(paperImageUrls[1], getPageHeight());
+    body.appendChild(overlay.getElement());
+
     const bodyWatcher = new BodyWatcher(() => {
         overlay.setHeight(getPageHeight());
     });
-
-    body.appendChild(overlay.getElement());
     bodyWatcher.start();
 }
 
