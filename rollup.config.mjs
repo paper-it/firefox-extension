@@ -5,7 +5,7 @@ export default [
     input: 'src/content/index.ts',
     output: {
       file: 'dist/content.js',
-      format: 'cjs'
+      format: 'iife'
     },
     plugins: [typescript()]
   },
@@ -13,7 +13,7 @@ export default [
     input: 'src/background/index.ts',
     output: {
       file: 'dist/background.js',
-      format: 'cjs'
+      format: 'iife'
     },
     plugins: [typescript()]
   }
