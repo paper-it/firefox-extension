@@ -1,12 +1,16 @@
 import { Overlay } from "./libs/Overlay";
 import { BodyWatcher } from "./libs/BodyWatcher";
-import { FilterLevel, StylesManager } from "./libs/StylesManager";
+import { StylesManager } from "./libs/StylesManager";
+import { SettingsManager } from "./libs/settings/SettingsManager";
 import { getPageHeight, isHtmlDocument, waitForTag } from "./libs/utils";
 
 async function initialize() {
     if (!isHtmlDocument()) {
         return;
     }
+
+    const settingsManager = new SettingsManager();
+    const settings = await settingsManager.forHostname(document.location.hostname);
 
     const paperImageUrls = [
         browser.runtime.getURL('images/paper1.jpg'),
@@ -16,9 +20,9 @@ async function initialize() {
     await waitForTag('head');
 
     const stylesManager = new StylesManager();
-    stylesManager.grayscaleLevel = FilterLevel.Ten;
-    stylesManager.contrastLevel = FilterLevel.Zero;
-    stylesManager.isBorderRadiusDisabled = true;
+    stylesManager.grayscaleLevel = settings.grayscaleLevel;
+    stylesManager.contrastLevel = settings.contrastLevel;
+    stylesManager.isBorderRadiusDisabled = settings.isBorderRadiusDisabled;
     stylesManager.apply();
 
     const body = await waitForTag('body');
