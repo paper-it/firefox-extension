@@ -1,7 +1,8 @@
 import { Overlay } from "./libs/Overlay";
 import { BodyWatcher } from "./libs/BodyWatcher";
 import { StylesManager } from "./libs/StylesManager";
-import { SettingsManager } from "./libs/settings/SettingsManager";
+import { SettingsManager } from "../shared/settings";
+import { getPaperImageUrls } from "../shared/get-paper-image-urls";
 import { getPageHeight, isHtmlDocument, waitForTag } from "./libs/utils";
 
 async function initialize() {
@@ -11,11 +12,7 @@ async function initialize() {
 
     const settingsManager = new SettingsManager();
     const settings = await settingsManager.forHostname(document.location.hostname);
-
-    const paperImageUrls = [
-        browser.runtime.getURL('images/paper1.jpg'),
-        browser.runtime.getURL('images/paper2.jpg')
-    ];
+    const paperImageUrls = getPaperImageUrls();
 
     await waitForTag('head');
 
@@ -26,7 +23,7 @@ async function initialize() {
     stylesManager.apply();
 
     const body = await waitForTag('body');
-    const overlay = new Overlay(paperImageUrls[1], getPageHeight());
+    const overlay = new Overlay(paperImageUrls[settings.backgroundPaperIndex], getPageHeight());
     body.appendChild(overlay.getElement());
 
     const bodyWatcher = new BodyWatcher(() => {

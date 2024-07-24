@@ -21,6 +21,11 @@
   "web_accessible_resources": [
     "images/*"
   ],
+  "browser_action": {
+    "default_icon": "icons/icons8-newspaper-48.png",
+    "default_title": "Paper It",
+    "default_popup": "popup/index.html"
+  },
   "permissions": [
     "storage"
   ]

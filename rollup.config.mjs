@@ -16,5 +16,13 @@ export default [
       format: 'iife'
     },
     plugins: [typescript()]
+  },
+  {
+    input: 'src/popup/index.ts',
+    output: {
+      file: 'dist/popup.js',
+      format: 'iife'
+    },
+    plugins: [typescript()]
   }
 ];
