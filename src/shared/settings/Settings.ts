@@ -1,13 +1,15 @@
-import { FilterLevel } from "../StylesManager";
+import { FilterLevel } from "../../content/libs/StylesManager";
 
 export type Settings = {
     grayscaleLevel: FilterLevel;
     contrastLevel: FilterLevel;
     isBorderRadiusDisabled: boolean;
+    backgroundPaperIndex: number;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
     grayscaleLevel: FilterLevel.Ten,
     contrastLevel: FilterLevel.Zero,
-    isBorderRadiusDisabled: true
+    isBorderRadiusDisabled: true,
+    backgroundPaperIndex: 1
 };
