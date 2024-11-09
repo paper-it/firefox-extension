@@ -1,4 +1,4 @@
-import { FilterLevel } from "../../content/libs/StylesManager";
+import { FilterLevel } from "../FilterLevel";
 
 export type Settings = {
     grayscaleLevel: FilterLevel;

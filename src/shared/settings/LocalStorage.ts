@@ -4,4 +4,10 @@ export class LocalStorage {
 
         return result[key] as T | undefined;
     }
+
+    public static async set(key: string, value: unknown) {
+        return browser.storage.local.set({
+            [key]: value
+        });
+    }
 }

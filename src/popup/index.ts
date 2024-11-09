@@ -1,16 +1,12 @@
-import { getCurrentTabUrl } from "./libs/get-current-tab-url";
 import { SettingsManager } from "../shared/settings";
 import { getPaperImageUrls } from "../shared/get-paper-image-urls";
+import { FilterLevel } from "../shared/FilterLevel";
+import { EventType } from "../shared/Event";
+import { sendEventToContentScript } from "./events/send-event-to-content-script";
 
 async function initialize() {
-    const currentTabUrl = await getCurrentTabUrl();
-
-    if (!currentTabUrl) {
-        return;
-    }
-
     const settingsManager = new SettingsManager();
-    const settings = await settingsManager.forHostname(currentTabUrl.hostname);
+    const settings = await settingsManager.getSettings();
 
     const paperSelectEl = document.getElementById('paper_select') as HTMLSelectElement;
     const contrastLevelEl = document.getElementById('contrast_level') as HTMLInputElement;
@@ -25,9 +21,33 @@ async function initialize() {
         paperSelectEl.add(option);
     }
 
+    paperSelectEl.selectedIndex = settings.backgroundPaperIndex;
     contrastLevelEl.value = settings.contrastLevel.toString();
     disableBorderRadiusEl.checked = settings.isBorderRadiusDisabled;
-    paperSelectEl.selectedIndex = settings.backgroundPaperIndex;
+
+    paperSelectEl.addEventListener('change', async () => {
+        await settingsManager.setBackgroundPaperIndex(paperSelectEl.selectedIndex);
+
+        await sendEventToContentScript({
+            type: EventType.SettingsUpdated
+        });
+    });
+
+    contrastLevelEl.addEventListener('input', async () => {
+        await settingsManager.setContrastLevel(Number(contrastLevelEl.value) as FilterLevel);
+
+        await sendEventToContentScript({
+            type: EventType.SettingsUpdated
+        });
+    });
+
+    disableBorderRadiusEl.addEventListener('change', async () => {
+        await settingsManager.setIsBorderRadiusDisabled(disableBorderRadiusEl.checked);
+
+        await sendEventToContentScript({
+            type: EventType.SettingsUpdated
+        });
+    });
 }
 
 initialize()
