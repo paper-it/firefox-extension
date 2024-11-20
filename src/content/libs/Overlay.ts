@@ -1,9 +1,9 @@
 export class Overlay {
+    public static readonly OVERLAY_ELEMENT_ID = 'paper-it-extension-overlay';
     private readonly _element: HTMLDivElement;
 
     public constructor(height: number) {
-        this._element = document.createElement('div');
-
+        this._element = this._getElementOrCreate();
         this._element.style.position = 'absolute';
         this._element.style.top = '0';
         this._element.style.left = '0';
@@ -26,5 +26,14 @@ export class Overlay {
 
     public getElement() {
         return this._element;
+    }
+
+    private _getElementOrCreate() {
+        const existingElement = document.getElementById(Overlay.OVERLAY_ELEMENT_ID);
+        const element = existingElement ? existingElement as HTMLDivElement : document.createElement('div');
+
+        element.id = Overlay.OVERLAY_ELEMENT_ID;
+
+        return element;
     }
 }
