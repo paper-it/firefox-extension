@@ -1,8 +1,7 @@
 import { SettingsManager } from "../shared/settings";
 import { getPaperImageUrls } from "../shared/get-paper-image-urls";
 import { FilterLevel } from "../shared/FilterLevel";
-import { EventType } from "../shared/Event";
-import { sendEventToContentScript } from "./events/send-event-to-content-script";
+import { notifyTabsToUpdateSettings } from "./events/notify-tabs-to-update-settings";
 
 async function initialize() {
     const settingsManager = new SettingsManager();
@@ -28,25 +27,19 @@ async function initialize() {
     paperSelectEl.addEventListener('change', async () => {
         await settingsManager.setBackgroundPaperIndex(paperSelectEl.selectedIndex);
 
-        await sendEventToContentScript({
-            type: EventType.SettingsUpdated
-        });
+        await notifyTabsToUpdateSettings();
     });
 
     contrastLevelEl.addEventListener('input', async () => {
         await settingsManager.setContrastLevel(Number(contrastLevelEl.value) as FilterLevel);
 
-        await sendEventToContentScript({
-            type: EventType.SettingsUpdated
-        });
+        await notifyTabsToUpdateSettings();
     });
 
     disableBorderRadiusEl.addEventListener('change', async () => {
         await settingsManager.setIsBorderRadiusDisabled(disableBorderRadiusEl.checked);
 
-        await sendEventToContentScript({
-            type: EventType.SettingsUpdated
-        });
+        await notifyTabsToUpdateSettings();
     });
 }
 

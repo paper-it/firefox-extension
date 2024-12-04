@@ -1,7 +1,7 @@
 import { getAllTabs } from "../tabs/get-all-tabs";
 import { Event } from "../../shared/Event";
 
-export async function sendEventToContentScript(event: Event) {
+export async function sendEventToAllTabs(event: Event) {
     const tabs = await getAllTabs();
 
     for (const tab of tabs) {
