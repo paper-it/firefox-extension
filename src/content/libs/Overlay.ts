@@ -1,5 +1,5 @@
 export class Overlay {
-    public static readonly OVERLAY_ELEMENT_ID = 'paper-it-extension-overlay';
+    private static readonly OVERLAY_ELEMENT_ID = 'paper-it-extension-overlay';
     private readonly _element: HTMLDivElement;
 
     public constructor(height: number) {
@@ -16,6 +16,14 @@ export class Overlay {
         this.setHeight(height);
     }
 
+    public insertIfNeeded() {
+        if (this._isInserted()) {
+            return;
+        }
+
+        document.body.append(this._element);
+    }
+
     public setHeight(height: number) {
         this._element.style.height = `${height}px`;
     }
@@ -24,8 +32,10 @@ export class Overlay {
         this._element.style.backgroundImage = `url(${url})`;
     }
 
-    public getElement() {
-        return this._element;
+    private _isInserted() {
+        const existingElement = document.getElementById(Overlay.OVERLAY_ELEMENT_ID);
+
+        return existingElement != null;
     }
 
     private _getElementOrCreate() {

@@ -8,6 +8,10 @@ export class StylesManager {
 
     public constructor() {
         this._styleElement = document.createElement('style');
+    }
+
+    public initialize() {
+        this.apply();
 
         document.head.append(this._styleElement);
     }
