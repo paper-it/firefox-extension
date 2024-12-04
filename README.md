@@ -7,7 +7,7 @@ allowing you to choose what to read independently of bright covers or colorful f
 
 Because I'm tired of the overly colorful video covers, article previews,
 and eye-catching font colors that distract from the main content.
-I don't want to turn off thumbnails on YouTube, and I don't want to hide images.
+I don't want to turn off thumbnails on YouTube, hide article covers, or install dark themes.
 I just want to choose the order of viewing the content myself, because my attention belongs to me.
 
 ## Demo
